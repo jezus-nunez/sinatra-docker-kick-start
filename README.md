@@ -26,8 +26,11 @@ For the blob persistance we are using mongo's GridFS. For a quick start on mongo
 You may want to get into some networking on the containers, introducing sandboxkey:
 
 Create a netns link in /var/run (as su)
+```
    ln -s /var/run/docker/netns/ netns
    ip netns show
-
+```
 To get the sandboxkey for jnunez/hello running image:
-   ip netns exec `docker ps -a | grep jnunez/hello | awk '{print $1}' | head -n 1 | xargs -I container docker inspect container | grep "SandboxKey" | awk -F: '{print $2}' | awk -F/ '{print $6}'`ip addr show eth0
+```
+ip netns exec `docker ps -a | grep jnunez/hello | awk '{print $1}' | head -n 1 | xargs -I container docker inspect container | grep "SandboxKey" | awk -F: '{print $2}' | awk -F/ '{print $6}'`ip addr show eth0
+```
