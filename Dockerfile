@@ -6,6 +6,16 @@ RUN sed -i '/deb http:\/\/deb.debian.org\/debian jessie-updates main/d' /etc/apt
 RUN apt-get -o Acquire::Check-Valid-Until=false update
 RUN apt-get install -y net-tools
 
+ARG SSH_KEY
+ARG SSH_KEY_PASSPHRASE
+RUN mkdir -p /root/.ssh && \
+    chmod 0700 /root/.ssh && \
+    ssh-keyscan github.com > /root/.ssh/known_hosts && \
+    echo "${SSH_KEY}" > /root/.ssh/id_rsa && \
+    chmod 600 /root/.ssh/id_rsa
+RUN eval `ssh-agent -s` && \
+    printf "${SSH_KEY_PASSPHRASE}\n" | ssh-add $HOME/.ssh/id_rsa
+
 
 #Install gems
 
@@ -22,4 +32,5 @@ COPY . $APP_HOME
 # Start server
 ENV PORT 3000
 EXPOSE 3000
+
 CMD ["ruby", "hello.rb"]

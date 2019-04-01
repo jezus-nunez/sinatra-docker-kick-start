@@ -5,8 +5,16 @@ neo4j:
     ports:
       - "17474:7474"
       - "17687:7687"
+
+mongodb:
+    build: ../docker-mongodb
+    ports:
+      - "27017:27017"
+    volumes: 
+      - /tmp/mongodb:/data
+
 app:
-    build: .  
+    image: jnunez/mongoapp
     volumes:
       - ./:/app
     links:
