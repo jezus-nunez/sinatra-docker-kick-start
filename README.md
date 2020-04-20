@@ -9,6 +9,8 @@ $ sudo chmod +x /usr/local/bin/docker-compose
 
 ```
 
+![Self-editing Diagram](http://jgraph.github.io/drawio-github/self-editing.svg)
+
 now just issue:
 
 `docker-compose run`
